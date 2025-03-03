@@ -5,14 +5,12 @@ from django.contrib.auth.forms import PasswordChangeForm
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ['title', 'description']
-
+        fields = ['title', 'description', 'price', 'quantity', 'image_path']  
 
 class CustomUserForm(forms.ModelForm):
     class Meta:
         model = CustomUser
         fields = ['username', 'first_name', 'last_name', 'email']
-
 
 
 class ChangePasswordForm(PasswordChangeForm):

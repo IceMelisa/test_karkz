@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout, update_session_auth_hash
+from django.core.files.storage import FileSystemStorage
 from django.contrib import messages
 from .models import Post, CustomUser
-from .forms import CustomUserForm, ChangePasswordForm
+from .forms import CustomUserForm, ChangePasswordForm, PostForm
 
 
 def index(request):
@@ -20,8 +21,21 @@ def profile(request):
 def logout_view(request):
     logout(request)  
     return redirect('log')  
+def create_post(request):
+    if request.method == 'POST':
+        form = PostForm(request.POST, request.FILES) 
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.save()  
+            messages.success(request, 'Пост успешно создан!')
+            return redirect('index')
+        else:
+            messages.error(request, 'Ошибка при создании поста. Пожалуйста, попробуйте снова.')
 
+    else:
+        form = PostForm()
 
+    return render(request, 'create_post.html', {'form': form})
 
 
 def reg(request):
