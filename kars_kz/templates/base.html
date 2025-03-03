@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% load static %}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'style/profile.css' %}">
+    <title>Document</title>
+</head>
+<body>
+
+<h1>Потработка первой функции</h1>
+
+<h1>Все посты</h1>
+
+<ul>
+    {% for post in posts %}
+        <li>
+            <h2>{{ post.title }}</h2>
+            <p>{{ post.description }}</p>
+        </li>
+    {% empty %}
+        <p>Нет постов для отображения.</p>
+    {% endfor %}
+</ul>
+
+<a href="{% url 'profile' %}"><button class="button">Зайти в профиль</button></a>
+
+</body>
+</html>
